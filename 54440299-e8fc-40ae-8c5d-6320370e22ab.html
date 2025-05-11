@@ -1,0 +1,365 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Below the Stone Demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+  height: 48px;
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+	height: 48px;
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, #24282f, rgba(100,100,100,0.73))">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button> Below the Stone Demo</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Detalhes</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />							<TR>
+								<TD>Tempo de jogo</TD>
+								<TD>N&#227;o Jogado</TD>
+							</TR>
+							<TR>
+								<TD>Última Atividade</TD>
+								<TD><a href="#quicklink-21/08/2023">21/08/2023</a> 23:35:04</TD>
+							</TR>
+							<TR>
+								<TD>Adicionado</TD>
+								<TD><a href="#quicklink-21/08/2023">21/08/2023</a> 23:35:04</TD>
+							</TR>
+							<TR>
+								<TD>Modificado</TD>
+								<TD><a href="#quicklink-22/11/2024">22/11/2024</a> 4:05:36</TD>
+							</TR>
+							<TR>
+								<TD>Status de Conclusão</TD>
+								<TD><a href="#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Biblioteca</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_library_ascendente_name_ascendente.html#quicklink-Gog">Gog</a></TD>
+							</TR>
+							<TR>
+								<TD>Fonte</TD>
+								<TD><a href="#quicklink-GOG">GOG</a></TD>
+							</TR>
+							<TR>
+								<TD>Plataforma</TD>
+								<TD><a href="#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Data de Lançamento</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_releasedate_descendente_name_ascendente.html#quicklink-18/07/2023">18/07/2023</a> </TD>
+							</TR>
+							<TR>
+								<TD>Pontuação da Comunidade</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Avaliação da crítica</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_criticscore_descendente_name_ascendente.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Pontuação do Usuário</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Gênero</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Action">Action</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Adventure">Adventure</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Roguelike">Roguelike</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Desenvolvedor</TD>
+								<TD><a href="#quicklink-Strollart">Strollart</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Editor</TD>
+								<TD><a href="#quicklink-Apogee Entertainment">Apogee Entertainment</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Funções</TD>
+								<TD><a href="#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://www.gog.com/forum/below_the_stone" target="_blank">Fórum</a><br/><a href="https://www.gog.com/en/game/below_the_stone_demo" target="_blank">Página na loja</a><br/><a href="http://pcgamingwiki.com/w/index.php?search=Below the Stone Demo" target="_blank">PCGamingWiki</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video Micro missing">[EMT] Video Micro missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video missing">[EMT] Video missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-2D">2D</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Crafting">Crafting</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Demo">Demo</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Dungeon Crawler">Dungeon Crawler</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Exploration">Exploration</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Fantasy">Fantasy</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Pixel Graphics">Pixel Graphics</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Procedural Generation">Procedural Generation</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Resource Management">Resource Management</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Retro">Retro</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Roguelike">Roguelike</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Roguelite">Roguelite</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Top-Down">Top-Down</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Underground">Underground</a><br/></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Descri&#231;&#227;o</H3>
+				</div>
+				<div class="description">
+					<img src="https://items.gog.com/below_the_stone/quotes.png" />
+<br>
+
+<br>
+Below the Stone is a punishing pixel art roguelike about dwarves questing to reach the deepest depths. Each and every descent will lead to new adventures, where only the most determined players with many risked lives will be rewarded by the hidden world that lies Below the Stone.<h4><b>Explore a Deep World of Ancient Mysteries</b></h4>Discover the lore of dwarves, the treasures they die for, and the secrets they rarely speak of. Within the stone below lies the adventure everyone seeks, but there's always a price. Often death.<h4><b>Mine and Magically Merge Gems</b></h4>Mine rare gems that grant magical buffs and can be socketed to your weapons and armor. When you have enough of one type of gem merge them together to make a more powerful version! This can be done over and over.<h4><b>The World Below is Not Safe</b></h4>Each level deeper pits you against more cunning creatures and more dangerous biomes. But also greater rewards to mine and uncover. No pain no gain. (And some pain can be relieved with a pint of Dwarven brew.)<h4><b>Roguelike Gameplay</b></h4> With each descent, you'll explore and find many unique ores, gems, and ancient treasures that have been buried before time -- all which will help you delve deeper in future descents...but only if you craft the right gear to survive.<h4><b>Enough Variety Fit for a Dwarven Dinner Feast</b></h4>With over 25 uniquely dangerous and graphically beautiful biomes, there's no lack of new environments and resources to find -- but tread carefully, as each has its own distinct threats as well.<h4><b>Crafting Equipment</b></h4>Prepare each dive below the stone by crafting new equipment, socketing new gems, and brewing new potions with all the resources you've harvested from your previous journeys ... But beware, when you die, anything lost below the stone ... will remain forever buried below the stone.
+<br>
+
+<br>
+Dwarves will be sent below the surface to collect metal and precious gems that your kin request of you. However, you can keep any extra you gain-- make a new pickaxe, a sword, some armor. Whatever increases your odds of coming back on your next trip! Store them safely at the dwarven kingdom, your hub area for crafting, storying items safely for your next expedition, and picking up new missions from your kin. But we warned! If you die Below the Stone, everything you carried on you will be lost under the surface forever.
+<br>
+
+<br>
+With each descent you can also decide whether or not you are prepared to go deeper in your journey. Each layer's entrance will be held within a dungeon as a final challenge to see if you are capable and prepared enough to descend further. Once you go down, you will face a bevy of new biomes, creatures, resources, and environments to explore. Each layer is will contain 8-12 unique biomes that will challenge a dwarf's resourcefulness and grit.
+<br>
+
+<br>
+<img src="https://items.gog.com/below_the_stone/biome.png" />
+
+
+<br>
+<img src="https://items.gog.com/below_the_stone/biomes_examples.png" />
+
+
+<br>
+<img src="https://items.gog.com/below_the_stone/kingdom.png" />
+<br>
+
+<br>
+The Dwarven kingdom is your place for crafting, preparation, and most importantly storing loot for later expeditions. You have full control over what items you bring with you, what equipment you craft, and what items you choose to keep at home safe and sound. The only catch is if you die, you will lose all the items you took down into the caves on your dwarf - such is the cost of progress!  Additionally, your stay in the dwarven kingdom will yield an ever-growing cast of allies to aid you on your adventures below the surface. For example...
+<br>
+
+<br>
+<img src="https://items.gog.com/below_the_stone/crafting4.png" />
+
+<br>
+<img src="https://items.gog.com/below_the_stone/crafting1.png" />
+
+<br>
+A dwarf's best friend is someone who can turn shiny things into useful tools. The Blacksmith is the reliable friend you can return home to when you're in need of proper weaponry, armor, and equipment for your future descents.  His skills will aid in crafting your newly found ores into fresh new equipment to help you on your next trip into the depths, arming yourself for the dangerous realms below...
+<br>
+
+<br>
+<img src="https://items.gog.com/below_the_stone/crafting5.png" />
+
+
+<br>
+<img src="https://items.gog.com/below_the_stone/crafting2.png" />
+
+
+<br>
+Some characters may be encountered underground and are in need of rescue; these folk will be welcomed to the dwarven kingdom as new companions to help you on your future journeys. You may bump into anything at all, from elven witches who brew potions to legendary dragon-slayers -  and even necromancers! We plan on the kingdom having at least 10 - 12 important mainline characters you will be able to save and bring back to help your future adventures. Each of them will add a unique flavor to the kingdom and your journeys downward as they give you better chances, modifiers, and even change your playstyle.
+<br>
+
+<br>
+<img src="https://items.gog.com/below_the_stone/crafting6.png" />
+<br>
+
+
+<img src="https://items.gog.com/below_the_stone/crafting3.png" />
+
+
+<br>
+Keeping goblins from scalping that freshly trimmed beard of yours is a top priority for a dwarf - not to mention a mark on their honor to keep their hair intact - so make sure to do anything you can to increase your odds of coming back on your next trip! Brand new armor, weapons, and tools do make your missions easier, but be warned: if you die in Below The Stone, everything remains buried Below The Stone. Forever. So calculate your risks and use your resources wisely, starting with the banker - your trusted ally to make sure your items are safe when you decide not to bring certain equipment! This will let smart and experienced players plan out their future runs well ahead of time, and let you decide if this is the moment you decide to risk it all on and go deeper than you've ever gone before in the name of dwarven progress...
+<br>
+
+<br>
+<img src="https://items.gog.com/below_the_stone/features_image.png" />
+<br>
+
+<br>
+<b>Features:</b><br>
+<br>
+<ul class="bb_ul"><li>Procedurally generated cave complexes which lead to a new adventure in every descent. 
+<br>
+</li><li>Plans on releasing 50+ biomes to explore with unique creatures, fauna, and resources to explore.
+<br>
+</li><li>5 planned layers to explore.
+<br>
+</li><li>Multiple dungeons on each layer to test your mettle.
+<br>
+</li><li>Full character customization (Your equipment determines your stats and abilities).
+<br>
+</li><li>A Dwarven Kingdom with many important characters to meet, save, and aid!
+<br>
+</li><li>Custom Cave missions for every descent.
+<br>
+</li><li>Roguelike experience (If you die, you lose everything you brought with you!)
+<br>
+</li><li>Tough, but Fair! Safely store extra loot and resources at the Dwarven Kingdom.
+<br>
+</li><li>An hour long+ soundtrack to immerse yourself into a fantasy spelunking experience.
+<br>
+</li><li>Release on all consoles (Including Nintendo Switch and PC!)
+<br>
+</li><li>Dwarves, blunderbusses, and fresh shiny things!
+<br>
+</li><li>Digging holes (diggy diggy holes)!</li></ul>
+
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
