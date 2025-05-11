@@ -1,0 +1,391 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Zoria: Age of Shattering DEMO</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+  height: 48px;
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+	height: 48px;
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, #24282f, rgba(100,100,100,0.73))">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button> Zoria: Age of Shattering DEMO</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Detalhes</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />							<TR>
+								<TD>Tempo de jogo</TD>
+								<TD>N&#227;o Jogado</TD>
+							</TR>
+							<TR>
+								<TD>Última Atividade</TD>
+								<TD><a href="#quicklink-02/10/2022">02/10/2022</a> 9:10:15</TD>
+							</TR>
+							<TR>
+								<TD>Adicionado</TD>
+								<TD><a href="#quicklink-02/10/2022">02/10/2022</a> 9:10:15</TD>
+							</TR>
+							<TR>
+								<TD>Modificado</TD>
+								<TD><a href="#quicklink-22/11/2024">22/11/2024</a> 4:18:00</TD>
+							</TR>
+							<TR>
+								<TD>Status de Conclusão</TD>
+								<TD><a href="#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Biblioteca</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_library_ascendente_name_ascendente.html#quicklink-Gog">Gog</a></TD>
+							</TR>
+							<TR>
+								<TD>Fonte</TD>
+								<TD><a href="#quicklink-GOG">GOG</a></TD>
+							</TR>
+							<TR>
+								<TD>Plataforma</TD>
+								<TD><a href="#quicklink-GOG tps@l">GOG tps@l</a><br/><a href="#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Data de Lançamento</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_releasedate_descendente_name_ascendente.html#quicklink-15/06/2020">15/06/2020</a> </TD>
+							</TR>
+							<TR>
+								<TD>Pontuação da Comunidade</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Avaliação da crítica</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_criticscore_descendente_name_ascendente.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Pontuação do Usuário</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Gênero</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Fantasy">Fantasy</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Role-playing">Role-playing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Turn-based">Turn-based</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Desenvolvedor</TD>
+								<TD><a href="#quicklink-Tiny Trinket Games">Tiny Trinket Games</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Editor</TD>
+								<TD><a href="#quicklink-Tiny Trinket Games">Tiny Trinket Games</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Funções</TD>
+								<TD><a href="#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://www.gog.com/en/game/zoria_age_of_shattering_demo" target="_blank">Store</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[CL] English">[CL] English</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video Micro missing">[EMT] Video Micro missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video missing">[EMT] Video missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-3D">3D</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Adventure">Adventure</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Aspect ratio: Cover not 2:3">Aspect ratio: Cover not 2:3</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Aspect ratio: Cover not 3:4">Aspect ratio: Cover not 3:4</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Aspect ratio: Cover not 4:3">Aspect ratio: Cover not 4:3</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Aspect ratio: Cover not 4:5">Aspect ratio: Cover not 4:5</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Atmospheric">Atmospheric</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Character Customization">Character Customization</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Crafting">Crafting</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-CRPG">CRPG</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Dungeon Crawler">Dungeon Crawler</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Fantasy">Fantasy</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Lore-Rich">Lore-Rich</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Open World">Open World</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Party-Based RPG">Party-Based RPG</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Realistic">Realistic</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-RPG">RPG</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Singleplayer">Singleplayer</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Story Rich">Story Rich</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Strategy">Strategy</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Strategy RPG">Strategy RPG</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Tactical RPG">Tactical RPG</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Turn-Based">Turn-Based</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Turn-Based Combat">Turn-Based Combat</a><br/></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Descri&#231;&#227;o</H3>
+				</div>
+				<div class="description">
+					<div style="overflow: hidden;">
+<a href="https://www.gog.com/game/zoria_age_of_shattering"><img src="https://items.gog.com/zoria_age_of_shattering/main_main_ZORIA_AGE_OF_SHATTERING.png" style="margin: 5px 15px 0 10px; float: left; width: 250px"></a><span style="display: block;"><br><br>Zoria: Age of Shattering is coming soon! You can wishlist it <a href="https://www.gog.com/game/zoria_age_of_shattering"><b>here</b></a></span></div>
+<br><hr><br>
+
+<h4>GAMEPLAY</h4>
+Zoria: Age of Shattering is a story-driven, party-based Classic RPG with base and character management. The player has control of its own base and a large roster of characters, adding a tactical layer to Every action taken. 
+<br>
+
+<br>
+
+Explore the beautiful lands of Zoria, from mountains to the ocean, towns and dungeons, follow the story and discover all its secrets. 
+<br><br>
+
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/zoria_age_of_shattering/Zoria-AoS-GIF-Gameplay-2-Optimized.gif.mp4"></video>
+
+<br>
+
+
+Your outpost is your base. By upgrading and expanding your outpost, you get access to better facilities and the ability to influence more of the world around you while leveling your followers gives you the ability to explore deeper, further into the unknown.
+<br>
+
+<br>
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/zoria_age_of_shattering/Zoria-AoS-GIF-Exploration-Optimized.gif.mp4"></video>
+
+
+
+<br>
+
+<h4>STORY</h4>
+Zoria. Home. Mother of all her inhabitants. She provides her children with food to grow, shelter to rest in and also, the harsh lessons of life, so her offspring may learn to fight and protect her gifts to them. 
+<br>
+But men, men wanted more. 
+<br>
+
+<br>
+Zoria’s finest sons and daughters: intelligent, resourceful… violent. Men turned her ores into sword and daggers, and her roots into vile concoctions of poison. 
+<br>
+
+<br>
+Men wanted more. They craved more land and more food. So, they built their homes of stone and wood, driving out the wildlife of its woods and caves. And in those caves they found their instrument of defiance: zerrium. 
+
+<br>
+
+<br>
+
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/zoria_age_of_shattering/Zoria-AoS-GIF-Gameplay-1-Optimized.gif.mp4"></video>
+
+<br>
+
+
+<h4>ADVENTURE</h4>
+All the places in the game are hand-crafted, with multiple paths and various options for exploration, depending on the party setup and their exploration abilities. Dungeons can always be revisited later, with a different party, to explore previously inaccessible areas and uncover their secrets.
+<br>
+
+<br>
+
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/zoria_age_of_shattering/Zoria-AoS-GIF-Adventure-Optimized.gif.mp4"></video>
+
+
+<br>
+
+
+<h4>RESOURCE MANAGEMENT</h4>
+Exploring the world needs to be planned out carefully, and supplies stocked accordingly. Without supplies, the party cannot restore their vital resources, making any dungeon that much more dangerous. Bringing enough supplies for the journey or upgrading alchemy and cooking skills to make better use of all the land has to offer, that’s a choice for everyone to make.
+<br>
+
+<br>
+
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/zoria_age_of_shattering/Zoria-AoS-GIF-Resting-Optimized.gif.mp4"></video>
+
+
+<br>
+
+
+<h4>TURN-BASED COMBAT</h4>
+Zoria’s combat is a Tactical, Turn-based confrontation, designed around the attributes of each class: special abilities, resistances, deadly ranged attacks or strong AOE defenses, healing and much more. But Zoria is a living world, so choose your battlegrounds wisely, as any wandering creature or enemy that gets too close might join in and ruin your best laid plans.
+<br>
+
+<br>
+
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/zoria_age_of_shattering/Zoria-AoS-GIF-Combat-Optimized.gif.mp4"></video>
+
+
+<br>
+
+
+<h4>CHARACTERS</h4>
+Manage an expansive roster of character from eight different classes, each with a unique skill set, both in combat and exploring the world. Choose your party each time you plan to explore your surroundings, depending on the characters available, their status, skills and level of each character and most importantly, your playstyle. 
+<br>
+
+<br>
+Magic, ranged attacks, sheer power, blocks and stuns, bleed and poisons, magic resistances - all there to explore, use and upgrade.
+<br>
+<br>
+
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/zoria_age_of_shattering/Zoria-AoS-GIF-Menu-Optimized.gif.mp4"></video>
+
+
+<br>
+
+
+<h4>BASE MANAGEMENT</h4>
+
+The Outpost is your base of operations and host to your roster of character. Each building in the outpost gives access to certain features in the game: the Inn to get new quests and find out news, the Apothecary to brew all kinds of potions and elixirs, the “Moon Flower” Burrow to rest and recover your characters and many others. Each building can be upgraded to get access to new features, recipes or improve its functionality.
+<br>
+
+
+<h4>FEATURES:</h4>
+
+<ul>
+<li><b>Explore a rich, diverse and immersive world:</b> beautifully crafted environments - dense forests, haunting dungeons, old forgotten caves, golden deserts and many more.</li>
+<li><b>An epic story</b> driving your experience, with rich and expansive lore. Uncover the stories and hidden tales that live on through the people of Zoria and your own companions. Follow the storyline or explore the many stories and side-quests across the world.</li>
+<li><b>Plan your moves or just enjoy the ride</b> - a game experience suited both for players eager to just explore and adventure, as well as for those who value planning and strategic thinking. The difficulty levels accommodate both players that just want to enjoy the story and players that welcome a challenge.</li>
+<li><b>Easy to learn crafting system</b> with dozens of <b>epic weapons,</b> <b>unique potions </b>and other strange and surprising recipes, all ready to be found throughout the world.</li>
+<li><b>Elaborate character management:</b> class and character upgrade system, unique skills destined to both combat and exploration. Many possible character builds for each class, allowing the player to make the party they desire.</li>
+<li><b>Complex base management:</b> build new facilities, upgrade buildings, manage resources and expand your base.</li>
+</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>

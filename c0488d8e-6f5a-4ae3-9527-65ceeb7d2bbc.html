@@ -1,0 +1,312 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Moonshine Inc. Demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+  height: 48px;
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+	height: 48px;
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, #24282f, rgba(100,100,100,0.73))">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button> Moonshine Inc. Demo</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Detalhes</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />							<TR>
+								<TD>Tempo de jogo</TD>
+								<TD>N&#227;o Jogado</TD>
+							</TR>
+							<TR>
+								<TD>Última Atividade</TD>
+								<TD><a href="#quicklink-02/10/2022">02/10/2022</a> 9:10:14</TD>
+							</TR>
+							<TR>
+								<TD>Adicionado</TD>
+								<TD><a href="#quicklink-02/10/2022">02/10/2022</a> 9:10:14</TD>
+							</TR>
+							<TR>
+								<TD>Modificado</TD>
+								<TD><a href="#quicklink-22/11/2024">22/11/2024</a> 4:47:40</TD>
+							</TR>
+							<TR>
+								<TD>Status de Conclusão</TD>
+								<TD><a href="#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Biblioteca</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_library_ascendente_name_ascendente.html#quicklink-Gog">Gog</a></TD>
+							</TR>
+							<TR>
+								<TD>Fonte</TD>
+								<TD><a href="#quicklink-GOG">GOG</a></TD>
+							</TR>
+							<TR>
+								<TD>Plataforma</TD>
+								<TD><a href="#quicklink-GOG tps@l">GOG tps@l</a><br/><a href="#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Data de Lançamento</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_releasedate_descendente_name_ascendente.html#quicklink-"></a> </TD>
+							</TR>
+							<TR>
+								<TD>Pontuação da Comunidade</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Avaliação da crítica</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_criticscore_descendente_name_ascendente.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Pontuação do Usuário</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Gênero</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Simulation">Simulation</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Strategy">Strategy</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Desenvolvedor</TD>
+								<TD><a href="#quicklink-Klabater">Klabater</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Editor</TD>
+								<TD><a href="#quicklink-Klabater">Klabater</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Funções</TD>
+								<TD><a href="#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://www.gog.com/en/game/moonshine_inc_demo" target="_blank">Store</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video Micro missing">[EMT] Video Micro missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video missing">[EMT] Video missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-No Media: Cover">No Media: Cover</a><br/></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Descri&#231;&#227;o</H3>
+				</div>
+				<div class="description">
+					<div style="overflow: hidden;">
+<a href="https://www.gog.com/game/moonshine_inc">
+<img src="https://items.gog.com/moonshine_inc/main_main_moonshine.png" style="margin: 5px 15px 0 10px; float: left; width: 250px"></a>
+<span style="display: block;"><br><br>Moonshine Inc. is coming soon and can be wishlisted 
+<a href="https://www.gog.com/game/moonshine_inc"><b>here</b></a></span></div><br><hr><br> 
+
+<i>The main goal of <b>Moonshine Inc.</b> is to recreate the life of a real American moonshiner as authentically as possible. <b>Fermentation and distillation are simulated using exact formulas.</b> With various goals, objectives, and product demands, you will be challenged <b>to create the best moonshine and ensure the prosperity of your business</b> by remaining discreet and not drawing the attention of the authorities.</i>
+<br>
+
+<br>
+<img src="https://items.gog.com/moonshine_inc/Bez-nazwy-6.gif" />
+<br>
+
+<br>
+However, while your business grows, you will not escape the <b>ever-vigilant eye of the authorities</b>. You'll be harassed by corrupt sheriffs, a particular ATF agent, and even a corrupt governor calling for the new prohibition era. With the help of his younger sister Elly-Jane and old grand-uncle Donald, you will have to face all the above and beyond, from the competition to the general challenge of fighting Johnny Law. 
+<br>
+
+<br>
+<img src="https://items.gog.com/moonshine_inc/Bez-nazwy-9.gif" />
+<br>
+
+<br>
+As you gain experience and accumulate cash, you'll <b>expand your facility, perfect your craft, develop your distribution network</b>, and face threats from the authorities, who are determined to take you down. Who knows, maybe you will be the one dealing cards in this game one day? 
+<br>
+
+<br>
+<img src="https://items.gog.com/moonshine_inc/Bez-nazwy-7.gif" />
+<br>
+
+<br>
+<b>DO YOU HAVE WHAT IT TAKES TO BECOME A MOONSHINING LEGEND?</b>
+<br>
+
+<br>
+<ul class="bb_ul">Create apparatus and recipes, both your own and those “borrowed” from legendary moonshiners who walked the Appalachian mountains before you. There are more than 30 different moonshining machines and apparatuses to discover, plus their modifications featured within a complete crafting system!<br><br><img src="https://items.gog.com/moonshine_inc/Bez-nazwy-2.gif" /><br><br>Unveil the detailed technology tree and unlock new modifications for your equipment. Create more creative and more complex recipes in order to win over new customers, try out different flavor profiles and crafting ideas you've always wanted to have a go at!<br><br><img src="https://items.gog.com/moonshine_inc/Bez-nazwy-8.gif" /><br><br>The storyline features a lot of twists and a cast of colorful characters. It all starts with you making the biggest mistake of your life - and then it only gets worse! The Red Flag Police system, custom developed for the game, intelligently controls the behavior of the police and federal agents.<br><br><img src="https://items.gog.com/moonshine_inc/WelcomeScreen590x339.jpg" /><br><br>There are over 40 different ingredients and recipes to discover and produce! Enjoy the variety and replayability of the game tand take advantage of different tastes of the town and village folk!<br><br><img src="https://items.gog.com/moonshine_inc/Bez-nazwy-3.gif" /> <br></ul>
+
+
+<br>
+<b>AND REMEMBER... THE POLICE AND THE FEDS ARE WAITING FOR YOU TO SLIP-UP!</b>
+
+<br>
+
+<br>
+<img src="https://items.gog.com/moonshine_inc/how_to_make.png" />
+
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
