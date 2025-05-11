@@ -1,0 +1,300 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Ascent of Ashes Demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+  height: 48px;
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+	height: 48px;
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, #24282f, rgba(100,100,100,0.73))">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button> Ascent of Ashes Demo</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Detalhes</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />							<TR>
+								<TD>Tempo de jogo</TD>
+								<TD>N&#227;o Jogado</TD>
+							</TR>
+							<TR>
+								<TD>Última Atividade</TD>
+								<TD><a href="#quicklink-05/12/2023">05/12/2023</a> 0:33:50</TD>
+							</TR>
+							<TR>
+								<TD>Adicionado</TD>
+								<TD><a href="#quicklink-05/12/2023">05/12/2023</a> 0:33:50</TD>
+							</TR>
+							<TR>
+								<TD>Modificado</TD>
+								<TD><a href="#quicklink-22/11/2024">22/11/2024</a> 4:01:25</TD>
+							</TR>
+							<TR>
+								<TD>Status de Conclusão</TD>
+								<TD><a href="#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Biblioteca</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_library_ascendente_name_ascendente.html#quicklink-Gog">Gog</a></TD>
+							</TR>
+							<TR>
+								<TD>Fonte</TD>
+								<TD><a href="#quicklink-GOG">GOG</a></TD>
+							</TR>
+							<TR>
+								<TD>Plataforma</TD>
+								<TD><a href="#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Data de Lançamento</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_releasedate_descendente_name_ascendente.html#quicklink-"></a> </TD>
+							</TR>
+							<TR>
+								<TD>Pontuação da Comunidade</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Avaliação da crítica</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_criticscore_descendente_name_ascendente.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Pontuação do Usuário</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Gênero</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Building">Building</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Simulation">Simulation</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Survival">Survival</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Desenvolvedor</TD>
+								<TD><a href="#quicklink-Vivid Storm Interactive">Vivid Storm Interactive</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Editor</TD>
+								<TD><a href="#quicklink-Camlann Games">Camlann Games</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Funções</TD>
+								<TD><a href="#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://www.gog.com/forum/general" target="_blank">Fórum</a><br/><a href="https://www.gog.com/en/game/ascent_of_ashes_demo" target="_blank">Página na loja</a><br/><a href="http://pcgamingwiki.com/w/index.php?search=Ascent of Ashes Demo" target="_blank">PCGamingWiki</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video Micro missing">[EMT] Video Micro missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video missing">[EMT] Video missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Base Building">Base Building</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Building">Building</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-City Builder">City Builder</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Crafting">Crafting</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Exploration">Exploration</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Isometric">Isometric</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Management">Management</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Sandbox">Sandbox</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Stealth">Stealth</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Survival">Survival</a><br/></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Descri&#231;&#227;o</H3>
+				</div>
+				<div class="description">
+					<div style="overflow: hidden;">
+<a href="https://www.gog.com/game/ascent_of_ashes">
+<img src="https://items.gog.com/ascent_of_ashes/main_main_ascent_of_ashes.png" style="margin: 5px 15px 0 10px; float: left; width: 250px"></a>
+<span style="display: block;"><br><br>Ascent of Ashes is coming soon and can be wishlisted 
+<a href="https://www.gog.com/game/ascent_of_ashes"><b>here</b></a></span></div><br><hr><br> 
+
+<h4>BUILD A NEW HOME</h4>Build your survivors a base where they can rest and trade stories between adventures. Farm crops, tame alien beasts, incorporate salvaged technology and fortify your home against hostile intruders
+<br>
+
+<br>
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/ascent_of_ashes/mp4/Construction_-_Resized.gif.mp4" type="video/mp4"></video><h4>ENGAGE IN DEEP TACTICAL COMBAT</h4>Prevailing in combat will require more than just point-and-click. A detailed hit simulation and health system will mean that even non-lethal hits can render a survivor unable to go on. Suppressive fire might pin an enemy in place, but the ammunition used up may leave you ill-equipped to fight the next encounter effectively
+<br>
+
+<br>
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/ascent_of_ashes/mp4/Explosion_-_Resized.gif.mp4" type="video/mp4"></video><h4>DRIVE RESTORED VEHICLES</h4>It's a big world out there. To get around you will need better transportation than your legs can provide. One of the things setting Ascent of Ashes apart from other games of this genre is the ability to restore and drive vehicles.
+<br>
+<br>
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/ascent_of_ashes/mp4/Vehicles_-_Resized.gif.mp4" type="video/mp4"></video><h4>LEAD YOUR SURVIVORS</h4>Each survivor has their own unique personality and motivations. As colony leader it is up to you to find and recruit capable survivors to fill gaps in your roster against ever increasing challenges. Can you keep everyone happy, secure and motivated?
+<br>
+<br>
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/ascent_of_ashes/mp4/Campfire_-_Resized.gif.mp4" type="video/mp4"></video><h4>EXPLORE A STRANGE NEW WORLD</h4>You will find yourself in an expansive, procedurally generated world filled with different biomes and points of interest. To survive the post-apocalypse you'll have to brave the pre-collapse ruins and the many dangers that they hold.
+<br>
+<br>
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/ascent_of_ashes/mp4/Floaters_-_Resized.gif.mp4" type="video/mp4"></video><h4>CHALLENGE A DYNAMIC AI</h4>It's not enough to just have an in-depth combat system with a variety of mechanics. You also need opponents capable of using those mechanics to challenge you. Enemies will possess varying degrees of intelligence. Taking on a disorganized band of raiders will play very differently from fighting a squad of well-trained Remnant soldiers.
+<br>
+<br>
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/ascent_of_ashes/mp4/Dynamic_AI_-_Resized.gif.mp4" type="video/mp4"></video><h4>FROM THE ORGINAL CREATORS OF COMBAT EXTENDED</h4>Combining the deep simulation of classic post-apocalyptical survival titles with the tactical challenge of classic real time and turn-based gems, the original creators of RimWorld's heralded <b>Combat Extended</b> mod present a fresh take on the colony sim genre that emphasizes exploration, tight balance and strategic gameplay.<h4>MODDING SUPPORT</h4>Our team has its roots in mod-making and we've been fortunate to have been part of many great modding communities over the years. That's why with Ascent of Ashes, we want to give something back to those communities. We're building the game's engine from the ground up to be easily extendable, and thanks to our extensive experience in creating mods ourselves we know exactly what kind of support mod-makers need. Ascent of Ashes is a game developed by modders, for modders.
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
