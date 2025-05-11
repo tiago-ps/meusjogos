@@ -1,0 +1,378 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Colossal Cave Demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+  height: 48px;
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+	height: 48px;
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, #24282f, rgba(100,100,100,0.73))">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button> Colossal Cave Demo</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Detalhes</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />							<TR>
+								<TD>Tempo de jogo</TD>
+								<TD>N&#227;o Jogado</TD>
+							</TR>
+							<TR>
+								<TD>Última Atividade</TD>
+								<TD><a href="#quicklink-30/08/2023">30/08/2023</a> 11:41:09</TD>
+							</TR>
+							<TR>
+								<TD>Adicionado</TD>
+								<TD><a href="#quicklink-30/08/2023">30/08/2023</a> 11:41:09</TD>
+							</TR>
+							<TR>
+								<TD>Modificado</TD>
+								<TD><a href="#quicklink-22/11/2024">22/11/2024</a> 4:04:16</TD>
+							</TR>
+							<TR>
+								<TD>Status de Conclusão</TD>
+								<TD><a href="#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Biblioteca</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_library_ascendente_name_ascendente.html#quicklink-Gog">Gog</a></TD>
+							</TR>
+							<TR>
+								<TD>Fonte</TD>
+								<TD><a href="#quicklink-GOG">GOG</a></TD>
+							</TR>
+							<TR>
+								<TD>Plataforma</TD>
+								<TD><a href="#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Data de Lançamento</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_releasedate_descendente_name_ascendente.html#quicklink-18/01/2023">18/01/2023</a> </TD>
+							</TR>
+							<TR>
+								<TD>Pontuação da Comunidade</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Avaliação da crítica</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_criticscore_descendente_name_ascendente.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Pontuação do Usuário</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Gênero</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Adventure">Adventure</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Exploration">Exploration</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Point-and-click">Point-and-click</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Desenvolvedor</TD>
+								<TD><a href="#quicklink-Cygnus Entertainment">Cygnus Entertainment</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Editor</TD>
+								<TD><a href="#quicklink-Cygnus Entertainment">Cygnus Entertainment</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Funções</TD>
+								<TD><a href="#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://www.gog.com/forum/colossal_cave" target="_blank">Fórum</a><br/><a href="https://www.gog.com/en/game/colossal_cave_demo" target="_blank">Página na loja</a><br/><a href="http://pcgamingwiki.com/w/index.php?search=Colossal Cave Demo" target="_blank">PCGamingWiki</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video Micro missing">[EMT] Video Micro missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video missing">[EMT] Video missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Atmospheric">Atmospheric</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Choices Matter">Choices Matter</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Choose Your Own Adventure">Choose Your Own Adventure</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Demo">Demo</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Escape Room">Escape Room</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Exploration">Exploration</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Fantasy">Fantasy</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-First-Person">First-Person</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Point & Click">Point & Click</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Puzzle">Puzzle</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Retro">Retro</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Story Rich">Story Rich</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Walking Simulator">Walking Simulator</a><br/></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Descri&#231;&#227;o</H3>
+				</div>
+				<div class="description">
+					<a href="https://www.gog.com/promo/2023_autumn_sale">
+<img src="https://items.gog.com/promobanners/2023_autumn_sale.png">
+</a><br><hr><br><div style="overflow: hidden;"> <a href="https://www.gog.com/game/colossal_cave"><img src="https://items.gog.com/colossal_cave/main.jpg" style="margin: 5px 15px 0 10px; float: left; width: 250px"></a><span style="display: block;"><br><br>The full version of Colossal Cave is available on GOG.COM. You can purchase it <a href="https://www.gog.com/game/colossal_cave"><b>here</b></a></span></div>
+<br><hr><br>
+
+<img src="https://items.gog.com/colossal_cave/2_CAVE.gif" />
+<br>
+
+<br>
+Embark on a timeless journey through a sprawling cave system packed with treasures, creatures, mazes, and wits-defying puzzles. The great grandpappy of adventure games will test you and tickle your problem-solving skills as you unearth its plot and secrets. Through cunning trial-and-error you will crawl through tight squeezes, encounter impressive caverns, collect inventory, locate treasure, thwart dwarf attacks, all while keeping your eye on the score before your lamp goes out.
+<br>
+
+<br>
+Dust off your vintage Colossal Cave maps from the 70s or 80s, they'll still work like a charm. This is a faithful, unchanged tribute to the original game design.  Need a little nudge? Stuck on the dragon? Call our <i>classic hint line</i> at <b>1-206-207-9017</b> for a helping hand. Can't seem to make progress? Search online for hints and tips that have been shared for decades.  Any tips or tricks regarding the original game play will still work here. Or, join our Discord for even more support!
+<br>
+
+<br>
+
+<img src="https://items.gog.com/colossal_cave/3_MAP.gif" />
+
+<br>
+<br>
+<video autoplay loop muted playsinline data-fallbackurl="https://items.gog.com/colossal_cave/mp4/4_DISCOVER.mp4" > <source src="https://items.gog.com/colossal_cave/mp4/4_DISCOVER.webm" type="video/webm"> </video>
+<br>
+
+<br>
+Developed in the mid-1970’s by amateur cave spelunker, this classic text-adventure was originally crafted as a way for a father to entertain his two young daughters. Will Crowther based his design on detailed cave maps he’d made with his wife, Patricia, of the Bedquilt section of Kentucky’s Mammoth cave.  Family cave exploration is at the heart of this game.
+<br>
+
+<br>
+Shortly thereafter, the code-prankster, Don Woods, discovered the game on the ARPANET and expanded the cave.  He layered in more fun, fantasy, puzzles, and a vexing 350-point system. 
+<br>
+
+<br>
+Years later, Don’s expansion became the most accessible and the definitive version of <i>Colossal Cave Adventure</i>.
+<br>
+
+<br>
+<img src="https://items.gog.com/colossal_cave/5_THE_BEGINNING.gif" />
+<br>
+
+<br>
+<img src="https://items.gog.com/colossal_cave/6_GRAPHIC.gif" />
+<br>
+
+<br>
+Enter Roberta Williams. She first played the game in 1979 and was instantly hooked. She spent weeks playing the game, taking notes and mapping out the cave, as it was revealed through the textual descriptions in game.  Her mind was filled with imaginary neon mushrooms, misty underground lakes, a snappy bivalve mollusk, and a noticeably absent giant.  After finishing the game, and all 350 points achieved, she was ready for another adventure – a dilemma in 1979.  If it was another adventure she wanted, she’d have to make her own!
+<br>
+
+<br>
+And, indeed she did.  In 1980 she designed and developed the world’s first graphic computer game, <i>Mystery House</i>.
+<br>
+
+<br>
+<video autoplay loop muted playsinline data-fallbackurl="https://items.gog.com/colossal_cave/mp4/7_PUZZLE.mp4" > <source src="https://items.gog.com/colossal_cave/mp4/7_PUZZLE.webm" type="video/webm"> </video>
+<br>
+
+<br>
+<img src="https://items.gog.com/colossal_cave/8_TIMELESS.gif" />
+<br>
+
+<br>
+This groundbreaking game is considered one of the most influential in history, establishing conventions that have become standard in the adventure game genre. It has been ported to just about every computer and console, played by millions, and inspired many other games, books, movies, and TV series.
+<br>
+
+<br>
+Relive the golden age of adventure gaming. Immerse yourself in a timeless exploration through a sprawling cave system filled with treasures, creatures, and brain-teasing puzzles. Transport back to a more innocent time and experience the retro-cool of point-and-click mechanics, accompanied by an art style that harkens back to the golden age of adventure games. This lovingly and respectfully assembled tribute is brought to you by boutique studio, Cygnus Entertainment.  Ken and Roberta Williams are committed to sharing and preserving the spirit of classic adventure games.
+<br>
+
+<br>
+<img src="https://items.gog.com/colossal_cave/9_LAMP.gif" />
+<br>
+
+<br>
+With its challenging and mind-bending puzzles, this explorative game will keep you enthralled. Explore 14 distinct regions filled with magic, hidden secrets, breathtaking views, and cave-dwelling creatures of all types. Each area offers a unique and enchanting experience. And with over 20 individual achievements to find and accomplish, you'll be hooked for hours.
+<br>
+
+<br>
+<ul class="bb_ul"><li>Simple, intuitive, point-&-click controls
+<br>
+</li><li>Captivating, colorful, and immersive regions
+<br>
+</li><li>Challenging, logic-driven puzzles
+<br>
+</li><li>A perfect blend of challenge and reward
+<br>
+</li><li>Scenic subterranean vistas with hidden secrets
+<br>
+</li><li>Over 20 individual achievements to accomplish
+<br>
+</li><li>A game that is incredibly fun and engaging
+<br>
+</li><li>A game experience unlike any other</li></ul>
+<br>
+<video autoplay loop muted playsinline data-fallbackurl="https://items.gog.com/colossal_cave/mp4/10_INVENTORY.mp4" > <source src="https://items.gog.com/colossal_cave/mp4/10_INVENTORY.webm" type="video/webm"> </video>
+<br>
+
+<br>
+<video autoplay loop muted playsinline data-fallbackurl="https://items.gog.com/colossal_cave/mp4/11_MAGIC.mp4" > <source src="https://items.gog.com/colossal_cave/mp4/11_MAGIC.webm" type="video/webm"> </video>
+<br>
+
+<br>
+And, as much as this game is steeped in gaming history and lore, there’s also a reason it’s stood the test of time and become so richly intertwined with gaming culture. It’s fun!  It is also thought provoking and challenging.  It is both simple and complex. It's creative - and, as Roberta says,  it’s a fantastic design.  
+<br>
+
+<br>
+Venture down into <i>Colossal Cave</i> and explore its depths.  Don’t forget your lamp!
+<br>
+<br>
+<p><a href="https://discord.gg/cdPgWC7dJc" target="_blank" rel=" noopener"  ><img src="https://items.gog.com/colossal_cave/1_DISCORD.gif" /></a></p>
+
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
