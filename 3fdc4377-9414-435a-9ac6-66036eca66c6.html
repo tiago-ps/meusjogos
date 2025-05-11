@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Soulash Demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+  height: 48px;
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+	height: 48px;
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, #24282f, rgba(100,100,100,0.73))">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button> Soulash Demo</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Detalhes</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />							<TR>
+								<TD>Tempo de jogo</TD>
+								<TD>N&#227;o Jogado</TD>
+							</TR>
+							<TR>
+								<TD>Última Atividade</TD>
+								<TD><a href="#quicklink-02/10/2022">02/10/2022</a> 9:10:15</TD>
+							</TR>
+							<TR>
+								<TD>Adicionado</TD>
+								<TD><a href="#quicklink-02/10/2022">02/10/2022</a> 9:10:15</TD>
+							</TR>
+							<TR>
+								<TD>Modificado</TD>
+								<TD><a href="#quicklink-19/01/2025">19/01/2025</a> 4:20:41</TD>
+							</TR>
+							<TR>
+								<TD>Status de Conclusão</TD>
+								<TD><a href="#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Biblioteca</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_library_ascendente_name_ascendente.html#quicklink-Gog">Gog</a></TD>
+							</TR>
+							<TR>
+								<TD>Fonte</TD>
+								<TD><a href="#quicklink-GOG">GOG</a></TD>
+							</TR>
+							<TR>
+								<TD>Plataforma</TD>
+								<TD><a href="#quicklink-GOG tps@l">GOG tps@l</a><br/><a href="#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Data de Lançamento</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_releasedate_descendente_name_ascendente.html#quicklink-03/03/2022">03/03/2022</a> </TD>
+							</TR>
+							<TR>
+								<TD>Pontuação da Comunidade</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Avaliação da crítica</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_criticscore_descendente_name_ascendente.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Pontuação do Usuário</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Gênero</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Roguelike">Roguelike</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Role-playing">Role-playing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Turn-based">Turn-based</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Desenvolvedor</TD>
+								<TD><a href="#quicklink-Artur Smiarowski">Artur Smiarowski</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Editor</TD>
+								<TD><a href="#quicklink-Artur Smiarowski">Artur Smiarowski</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Funções</TD>
+								<TD><a href="#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://www.gog.com/en/game/soulash_demo" target="_blank">Store</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[CL] English">[CL] English</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video Micro missing">[EMT] Video Micro missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video missing">[EMT] Video missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Aspect ratio: Cover not 2:3">Aspect ratio: Cover not 2:3</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Aspect ratio: Cover not 3:4">Aspect ratio: Cover not 3:4</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Aspect ratio: Cover not 4:3">Aspect ratio: Cover not 4:3</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Aspect ratio: Cover not 4:5">Aspect ratio: Cover not 4:5</a><br/></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Descri&#231;&#227;o</H3>
+				</div>
+				<div class="description">
+					<div style="overflow: hidden;">
+<a href="https://www.gog.com/game/soulash">
+<img src="https://items.gog.com/soulash/mainmain_soulash.png" 
+style="margin: 5px 15px 0 10px; float: left; width: 250px"></a><span style="display: block;"><br><br>
+The full version of <b>Soulash</b> is available on GOG.com. You can purchase it 
+<a href="https://www.gog.com/game/soulash"><b>here</b></a></span></div><br><hr><br>
+
+Bored of playing the protagonist that saves the world? Remember the times when it was good to be evil? In Soulash you'll be able to unleash your Berserker rage at annoying NPC characters and butcher them for meat. You will torture mortals with fire and electricity as a powerful Warlock. Summon an unlimited army of zombies and skeletons and rot everything in your path as a Lich Necromancer. And if you prefer the unexpected, you can't go wrong with a Goblin Inquisitor!
+<br>
+
+<br>
+<img src="https://items.gog.com/soulash/goblin_inquisitor3.png" /><h4>This world is yours for the taking</h4>
+A forgotten god versus the whole world. A dark being, ready to regain his might using souls ripped from hundreds of enemies. Soulash is a <b>turn-based combat-heavy roguelike</b> told from the villain's point of view, where an open world exists only for the pleasure of complete destruction. From gnome villages, through dwarven keeps, into the hot deserts, with massive Capital City and the Black Pyramid - everything is to conquer, destroy and cover in blood.
+<br>
+
+<br>
+<img src="https://items.gog.com/soulash/locations2.gif" /><h4>And the rivers will run red</h4>
+Kill other gods and change the landscape of the entire world. Rivers will turn into blood, winter will come, the world will cover in darkness as the sun dies.
+<br>
+Consume the souls of gods and change the world on a massive scale!
+<br>
+
+<br>
+<img src="https://items.gog.com/soulash/Soulash_BloodRiver.gif" /><h4>Your souls are mine</h4>
+Every soul you take will not come back to life. You can kill everyone in the world and do as you please with what's left. Soulash tells a story of a long-forgotten god that escaped his prison to reign in destruction and terror. Everything was born from you and will die because of you.
+<br>
+
+<br>
+<img src="https://items.gog.com/soulash/Soulash_Blizzard.gif" />
+<br>
+<img src="https://items.gog.com/soulash/Soulash_Meteor.gif" /><h4>Fight to the death</h4>
+Use over 100 different abilities to intimidate, corrupt or exterminate everything in your path in tactical, turn-based combat affected by weather conditions and terrain.
+<br>
+
+<br>
+<img src="https://items.gog.com/soulash/fight_in_snow3.gif" /><h4>Oh sweet, sweet loot</h4>
+You have no idea how Big Bertha got her hands on the Ring of Invisibility - but it's your precious artifact! 
+<br>
+Enemies are created with different sets of magic items during every playthrough, just watch out for the peasants casting Armageddon!
+<br>
+
+<br>
+<img src="https://items.gog.com/soulash/artifacts.gif" /><h4>Nice day for fishin' ain't it?</h4>
+Even gods need to rest on Sundays. How about growing some cabbages, milking cows, gathering honey, or cooking some elves, while chilling at the village you cleared of pests.
+<br>
+Soulash has multiple crafting and item production skills available, like woodcutting, mining, harvesting, gathering, threshing, fishing, butchering, skinning, and more.
+<br>
+
+<br>
+<img src="https://items.gog.com/soulash/crafting2.png" /><h4>Unlimited power!</h4>
+With in-game editors and configuration files, you can quickly mod a lot of new content into the game. Design your own maps, create your own abilities, professions, races, items, or weather conditions. You can even make a total conversion mod and create your favorite fantasy world to conquer. 
+<br>
+
+<br>
+<img src="https://items.gog.com/soulash/editor_small.gif" /><h4>Features & content</h4><ul class="bb_ul"><li> <b>Huge open world</b> made out of 350 alternative regions, with multiple starting positions, alternative routes to victory, 8 professions, and 15 races, making the game replayable with lots of interesting locations to discover, and character builds to try.
+<br>
+</li><li> <b>Tactical turn-based combat</b> with more than 150 abilities available, against hundreds of different enemies, including over 50 powerful unique enemies, bosses, and gods to beat.
+<br>
+</li><li> <b>Destructible terrain</b> and different weather effects that affect combat situations, the world is changed by your actions forever.
+<br>
+</li><li> <b>Interesting story</b> told through character monologues, dialogues, and location descriptions during encounters.
+<br>
+</li><li> <b>Tons of useful loot</b>, everything used by your opponents is dropped when they die, including powerful artifacts and magic items.
+<br>
+</li><li> <b>Leaderboards and achievements</b> integration for competitive players.
+<br>
+</li><li> No limits to summon count for necromancers!</li></ul>
+
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
