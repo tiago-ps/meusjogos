@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>8-Bit Adventures 2: Demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+  height: 48px;
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+	height: 48px;
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, #24282f, rgba(100,100,100,0.73))">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button> 8-Bit Adventures 2: Demo</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Detalhes</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />							<TR>
+								<TD>Tempo de jogo</TD>
+								<TD>N&#227;o Jogado</TD>
+							</TR>
+							<TR>
+								<TD>Última Atividade</TD>
+								<TD><a href="#quicklink-02/10/2022">02/10/2022</a> 9:10:14</TD>
+							</TR>
+							<TR>
+								<TD>Adicionado</TD>
+								<TD><a href="#quicklink-02/10/2022">02/10/2022</a> 9:10:14</TD>
+							</TR>
+							<TR>
+								<TD>Modificado</TD>
+								<TD><a href="#quicklink-22/11/2024">22/11/2024</a> 5:17:53</TD>
+							</TR>
+							<TR>
+								<TD>Status de Conclusão</TD>
+								<TD><a href="#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Biblioteca</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_library_ascendente_name_ascendente.html#quicklink-Gog">Gog</a></TD>
+							</TR>
+							<TR>
+								<TD>Fonte</TD>
+								<TD><a href="#quicklink-GOG">GOG</a></TD>
+							</TR>
+							<TR>
+								<TD>Plataforma</TD>
+								<TD><a href="#quicklink-GOG tps@l">GOG tps@l</a><br/><a href="#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Data de Lançamento</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_releasedate_descendente_name_ascendente.html#quicklink-30/01/2023">30/01/2023</a> </TD>
+							</TR>
+							<TR>
+								<TD>Pontuação da Comunidade</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Avaliação da crítica</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_criticscore_descendente_name_ascendente.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Pontuação do Usuário</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Gênero</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Adventure">Adventure</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Fantasy">Fantasy</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Role-playing">Role-playing</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Desenvolvedor</TD>
+								<TD><a href="#quicklink-Critical Games">Critical Games</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Editor</TD>
+								<TD><a href="#quicklink-Critical Games">Critical Games</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Funções</TD>
+								<TD><a href="#quicklink-Controller support">Controller support</a><br/><a href="#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://www.gog.com/en/game/8bit_adventures_2_demo" target="_blank">Store</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video Micro missing">[EMT] Video Micro missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video missing">[EMT] Video missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Aspect ratio: Cover not 2:3">Aspect ratio: Cover not 2:3</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Aspect ratio: Cover not 3:4">Aspect ratio: Cover not 3:4</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Aspect ratio: Cover not 4:3">Aspect ratio: Cover not 4:3</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Aspect ratio: Cover not 4:5">Aspect ratio: Cover not 4:5</a><br/></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Descri&#231;&#227;o</H3>
+				</div>
+				<div class="description">
+					<div style="overflow: hidden;">
+<a href="https://www.gog.com/game/8bit_adventures_2">
+<img src="https://items.gog.com/8-bit_adventures_2/main_main_8bit_adventures_2.png" style="margin: 5px 15px 0 10px; float: left; width: 250px"></a>
+<span style="display: block;"><br><br>8-Bit Adventures 2 is coming soon and can be wishlisted 
+<a href="https://www.gog.com/game/8bit_adventures_2"><b>here</b></a></span></div><br><hr><br> 
+
+<img src="https://items.gog.com/8-bit_adventures_2/Logo.jpg" /><h4><b>A Retro RPG That's More Than a Throwback!</b></h4>
+<b>8-Bit Adventures 2</b> is everything you love about NES, SNES and PS1-era JRPGs - with all of the charm, heart and soul, but none of the inconvenience. 
+<br>
+
+<br>
+That means an earnest, engaging storyline; relatable, easy-to-love characters; strategic turn-based battles; deep party customisation; bizarre monsters; an unforgettable soundtrack; and a large, fantastical world, traversed by Airship, and filled with people full of personality – all brought to life by vibrant 8-Bit inspired visuals. 
+<br>
+
+<br>
+Our modern approach to design ensures no random encounters or mandatory grinding, the freedom to save your game anywhere, and precise pacing which never bogs the player down with pointless filler, and ensures you’re always doing something fun and meaningful over the 20+ hour playtime. From beginning to end, 8-Bit Adventures 2 is focused on telling an engaging story, not wasting your time. 
+<br>
+
+<br>
+It may be a sequel, but anyone can jump into this brand new JRPG adventure!<h4><b>EXPLORE</b></h4>
+<ul class="bb_ul"><li>12 Towns and 29 Dungeons, every environment featuring its own feel and flavour.
+<br>
+</li><li>An expansive World Map filled with secrets and optional locations to discover; both on-foot and by vehicle. 
+<br>
+</li><li>Take to the skies in your Airship and fly wherever you want, or take a walk on the deck to do a bit of shopping and chat with your party members. It’s your high-in-the-sky home away from home! 
+<br>
+</li><li>Constant variety – everything from ancient ruins to a robot murder mystery – realised through charming pixel art which walks the line between authenticity and aesthetic.
+<br>
+</li><li>Everyone has a story, and you’ll find 8-Bit Adventures 2 full of weird and wonderful people eager to tell you theirs. They might reminisce about the past, offer helpful hints, complain about their daily lives, or just make a joke – you never know what they’ll say!
+<br>
+</li><li>Curiosity is always rewarded; the more you explore, the more powerful your characters can become!</li></ul><h4><b>BATTLE</b></h4>
+<ul class="bb_ul"><li>A turn-based JRPG battle system with depth and strategy, inspired by games like Final Fantasy X and Chrono Trigger.  
+<br>
+</li><li>Build your party from 7 playable characters, who can be freely swapped in and out of battle – without even wasting a turn!
+<br>
+</li><li>Unleash 99 unique abilities, including Team Attacks and Omega Burst finishing moves.
+<br>
+</li><li>Mix and match between an arsenal of weapons, armour, and accessories, or tap into a flexible Augment system which allows you to customise your characters stats and give them all kinds of special effects! 
+<br>
+</li><li>Snappy, stylised menus and icons make commands easy to find and execute, even if you’re new to menu-based combat. 
+<br>
+</li><li>Face down 98 of the toughest and weirdest foes you’ve ever seen – complete with the occasional name pun. They wander the world just like you do, so there are no random battles! 
+<br>
+</li><li>A carefully balanced experience with a gentle difficulty curve that allows players of all skill levels to enjoy the game, while still encouraging strategy. In 8-Bit Adventures 2, victory requires more than spamming the Attack button!
+<br>
+</li><li>Numerous side-quests and super bosses – some of which provide a significant challenge!</li></ul><h4><b>STORY</b></h4>
+<ul class="bb_ul"><li>Become absorbed in an engaging, character-driven tale about living a full life and protecting the things that really matter. 
+<br>
+</li><li>A feel-good adventure filled with love, laughs, and drama, which deals with the dark stuff but always wants to leave you feeling uplifted over its 20+ hours.
+<br>
+</li><li>Meet a loveable cast of characters who form relationships, make mistakes, and struggle with their past, but still work to save the world and overcome their demons. 
+<br>
+</li><li>Save the world from a vengeful Glitch! A mistreated child with terrifying powers threatens to reshape the world in his own chaotic image. A unique and persistent foe from beginning to end, the Glitch changes and develops over the course of the story like any other character, grappling with what he is…and what he could be. 
+<br>
+</li><li>8-Bit Adventures 2 has a script the size of a novel, and every line of text has been meticulously timed to make dialogue flow naturally and bring out each character’s personality - just like if they were speaking out loud. 
+<br>
+</li><li>A focus on tight pacing and providing a consistently enjoyable adventure, rather than dragging things out or artificially extending the length. 
+<br>
+</li><li>Some fun references and out there ideas, but this isn’t a Meta, fourth-wall breaking story; it’s a heartfelt, character-focused adventure through and through. While the conflict with the Glitch drives the overall narrative forward, the personal struggles and relationships of the party members give the game its heart.
+<br>
+
+<br>
+<img src="https://items.gog.com/8-bit_adventures_2/Character.png" />
+<br>
+
+<br>
+*This game features bright screen flashes for certain special attacks and effects. If you are susceptible to these kinds of flashes and bright lights, or have an epileptic condition of any kind, please consult your physician before playing.*</li></ul>
+
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
