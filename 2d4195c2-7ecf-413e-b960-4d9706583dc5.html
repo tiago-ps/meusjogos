@@ -1,0 +1,411 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Strategic Mind: Fight for Freedom Demo</title>
+		<meta name="viewport" content="width=device-width, initial-scale=0.55">
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+  height: 48px;
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+	height: 48px;
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #CCC;                                         /* unvisited link color */
+}
+a:visited {
+  color: #CCC;                                         /* visited link color */
+}
+a:hover {
+  color: #EEE;                                         /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #CCC;                                         /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, #24282f, rgba(100,100,100,0.73))">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button> Strategic Mind: Fight for Freedom Demo</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Detalhes</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />							<TR>
+								<TD>Tempo de jogo</TD>
+								<TD>N&#227;o Jogado</TD>
+							</TR>
+							<TR>
+								<TD>Última Atividade</TD>
+								<TD><a href="#quicklink-02/10/2022">02/10/2022</a> 9:10:15</TD>
+							</TR>
+							<TR>
+								<TD>Adicionado</TD>
+								<TD><a href="#quicklink-02/10/2022">02/10/2022</a> 9:10:15</TD>
+							</TR>
+							<TR>
+								<TD>Modificado</TD>
+								<TD><a href="#quicklink-22/11/2024">22/11/2024</a> 4:33:17</TD>
+							</TR>
+							<TR>
+								<TD>Status de Conclusão</TD>
+								<TD><a href="#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Biblioteca</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_library_ascendente_name_ascendente.html#quicklink-Gog">Gog</a></TD>
+							</TR>
+							<TR>
+								<TD>Fonte</TD>
+								<TD><a href="#quicklink-GOG">GOG</a></TD>
+							</TR>
+							<TR>
+								<TD>Plataforma</TD>
+								<TD><a href="#quicklink-GOG tps@l">GOG tps@l</a><br/><a href="#quicklink-PC (Windows)">PC (Windows)</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Data de Lançamento</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_releasedate_descendente_name_ascendente.html#quicklink-20/05/2021">20/05/2021</a> </TD>
+							</TR>
+							<TR>
+								<TD>Pontuação da Comunidade</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Avaliação da crítica</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_criticscore_descendente_name_ascendente.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Pontuação do Usuário</TD>
+								<TD><a href="#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Gênero</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Simulation">Simulation</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Strategy">Strategy</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascendente_name_ascendente.html#quicklink-Tactical">Tactical</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Desenvolvedor</TD>
+								<TD><a href="#quicklink-Starni Games">Starni Games</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Editor</TD>
+								<TD><a href="#quicklink-Starni Games">Starni Games</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Funções</TD>
+								<TD><a href="#quicklink-Cloud saves">Cloud saves</a><br/><a href="#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD><a href="https://www.gog.com/en/game/strategic_mind_fight_for_freedom_demo" target="_blank">Store</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Tag</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video Micro missing">[EMT] Video Micro missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-[EMT] Video missing">[EMT] Video missing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Aspect ratio: Cover not 3:4">Aspect ratio: Cover not 3:4</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Aspect ratio: Cover not 4:3">Aspect ratio: Cover not 4:3</a><br/><a href="default%20list%20text%20combobox%20quicklinks_tag_ascendente_name_ascendente.html#quicklink-Aspect ratio: Cover not 4:5">Aspect ratio: Cover not 4:5</a><br/></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Descri&#231;&#227;o</H3>
+				</div>
+				<div class="description">
+					<div style="overflow: hidden;">
+<a href="https://www.gog.com/game/strategic_mind_fight_for_freedom"><img src="https://items.gog.com/strategic_mind_fight_for_freedom/main_main_strategic_mind_fight_for_freedom.png" style="margin: 5px 15px 0 10px; float: left; width: 250px"></a><span style="display: block;"><br><br>Full version of Strategic Mind: Fight for Freedom is available <a href="https://www.gog.com/game/strategic_mind_fight_for_freedom"><b>here</b></a></span></div>
+<br><hr><br>
+
+Strategic Mind: Fight for Freedom is a history-driven turn-based strategy set in WW2. You will fight across Europe, Africa, and Burma. Will you spend the time on proper reconnaissance before the attack, or rely on aggressive tactics? Will you use night time or rain to your advantage, sneaking up on enemy positions, or just complain that the weather was unfavorable? Will you help the locals or leave them to their fate? It is up to you to save the stronghold of Democracy and Freedom in Europe from the totalitarian oppression of the Axis powers.
+<br>
+
+<br>
+<img src="https://items.gog.com/strategic_mind_fight_for_freedom/8C_1.png" /><h4>WITNESS WW2 FROM TWO DIFFERENT PERSPECTIVES</h4>The game has 2 campaigns: the British one features fully historical battles, while the US one has historical operations up to the defeat of Germany and also features a number of alternate history battles against the USSR afterward. It is created with great care and attention to historical detail by a team that is passionate about WW2 history.
+<br>
+
+<br>
+
+<br>
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/strategic_mind_fight_for_freedom/mp4/ezgif.com-gif-maker__4_.gif.mp4" type="video/mp4"></video>
+<br>
+
+<br>
+<b>Lead the British Army as Sir Harold Alexander</b>
+<br>
+Go all the way from Norway landings to the liberation of northern Italy. Command your troops in bitter defeats and in the moments of triumph. Take charge of the Dunkirk evacuation. Fight the Japanese in Burma, and Italians in Africa. Turn the tide of war against Germany at El Alamein. Finish the war in North Africa and lead the victorious landing in Italy in 1943. 
+<br>
+
+<br>
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/strategic_mind_fight_for_freedom/mp4/ezgif.com-gif-maker__7_.gif.mp4" type="video/mp4"></video>
+<br>
+
+<br>
+<b>Lead the US Army as General Dwight Eisenhower</b>
+<br>
+Go all the way from D-Day landings to the fall of Berlin. Ensure the success of Operation Market Garden, repel the last German offensive at the Ardennes, and strike the killing blow into the heart of the Reich. Then move into the alternate history of 1946 and face your strongest adversary yet - the Red Army. Command US and Allied forces and minimize your losses. Employ the units of all Allied and liberated countries to achieve maximum synergy. Exploit all available means to bring Freedom and Democracy to Eastern Europe.
+<br>
+
+<br>
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/strategic_mind_fight_for_freedom/mp4/ezgif.com-gif-maker__8_.gif.mp4" type="video/mp4"></video><h4>HISTORICAL OPERATIONS AND “WHAT IF” SCENARIOS</h4><b>Take part in historic events</b>
+<br>
+Make sure all of your troops manage to escape the Dunkirk trap. Show the Italian troops they should choose their allies more carefully by conducting operation Compass flawlessly. Change the course of the entire war in Africa by defeating Rommel in the Second Battle of El-Alamein. Go back to Europe by landing in Italy. Commence the D-Day landing and fight your way to Berlin to put an end to the Nazi regime and its crimes.
+<br>
+
+<br>
+<img src="https://items.gog.com/strategic_mind_fight_for_freedom/BD_1.png" />
+<br>
+
+<br>
+<b>Sate your curiosity of alternate history flow</b>
+<br>
+What would have happened if the Allies had to go to war against USSR in 1946, following the ideas of Operation Unthinkable? Now you can take the lead and explore such possibilities. Free the Eastern European countries from Communist rule!<h4>MEET THE TOP BRASS</h4>The gameplay is plot-driven and features many historical personalities such as Winston Churchill, Franklin Delano Roosevelt, Harold Alexander, Bernard Law Montgomery, Dwight D. Eisenhower, George S. Patton, and others.<h4>GAMEPLAY FEATURES</h4><b>Immerse yourself in history</b>
+<br>
+Enjoy the narrative-driven gameplay with lots of dialogues between the historical characters throughout each operation. The dialogues are affected by your actions. Dive deeper into the events of 1939-1946 by watching plot-driven cinematics before and after every operation.
+<br>
+
+<br>
+<b>Manage your Army</b>
+<br>
+Choose the composition of your forces. Acquire new units, upgrade or dismiss the outdated ones. There are 10 unit classes available in the game, with lots of models in each.
+<br>
+
+<br>
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/strategic_mind_fight_for_freedom/mp4/ezgif.com-gif-maker__11_.gif.mp4" type="video/mp4"></video>
+<br>
+
+<br>
+<b>Upgrade your units to newer models</b>
+<br>
+Get new unit models as soon as they become available. As the campaign progresses you gain access to more advanced units at historically accurate periods.
+<br>
+
+<br>
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/strategic_mind_fight_for_freedom/mp4/ezgif.com-gif-maker__12_.gif.mp4" type="video/mp4"></video>
+<br>
+
+<br>
+<b>Choose the best equipment for each operation</b>
+<br>
+Make sure that your forces have all the necessary tools for the upcoming battle. All units can employ various equipment and transport.
+<br>
+
+<br>
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/strategic_mind_fight_for_freedom/mp4/ezgif.com-gif-maker__13_.gif.mp4" type="video/mp4"></video>
+<br>
+
+<br>
+<b>Train your troops and choose new abilities for them</b>
+<br>
+Oversee your forces getting combat experience and choose news skills for them that best suit your strategy and tactics.
+<br>
+
+<br>
+<b>Assign heroes</b>
+<br>
+Assign heroes to the units of your choosing and get access to special skills. All heroes are real historical personalities. 
+<br>
+
+<br>
+<b>Develop your headquarters’ skills and employ advanced combat tactics</b>
+<br>
+Learn new HQ skills before every operation and use your newly-acquired knowledge to make a difference on the battlefield. 
+<br>
+
+<br>
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/strategic_mind_fight_for_freedom/mp4/ezgif.com-gif-maker__6_.gif.mp4" type="video/mp4"></video>
+<br>
+
+<br>
+<b>Use the enemy`s most advanced units against him</b>
+<br>
+Capture the best enemy units and add them to your forces. Then crash the enemy using his own strength. 
+<br>
+
+<br>
+<video muted preload="auto" loop autoplay="autoplay" style="margin: auto;display:block;width:100%">
+  <source src="https://items.gog.com/strategic_mind_fight_for_freedom/mp4/ezgif.com-gif-maker__9_.gif.mp4" type="video/mp4"></video>
+<br>
+
+<br>
+<b>Enjoy realistic 3D graphics</b>
+<br>
+Study the battle map and take advantage of 3D graphics, featuring volumetric terrain and physically-simulated movement of units. All units are very detailed representations of real models. 
+<br>
+
+<br>
+<img src="https://items.gog.com/strategic_mind_fight_for_freedom/BD_2.png" /><h4>WELCOME THE SUCCESSOR</h4>Strategic Mind: Fight for Freedom is the fourth installment in the Strategic Mind line of games, featuring both the United Kingdom and the United States in WW2.
+<br>
+
+<br>
+Previous titles in the series:
+<br>
+
+<br>
+<ul class="bb_ul"><li>Strategic Mind: The Pacific - the first game, featuring both the United States and the Empire of Japan waging war in the Pacific. 
+<br>
+</li><li>Strategic Mind: Blitzkrieg - the second game, featuring Germany in WW2.
+<br>
+</li><li>Strategic Mind: Spectre of Communism - the third game, featuring the USSR in WW2.</li></ul>
+<br>
+<img src="https://items.gog.com/strategic_mind_fight_for_freedom/8C_2.png" />
+
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
